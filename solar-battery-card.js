@@ -25,7 +25,7 @@ function localize(key, langInput) {
   return result || "";
 }
 
-class B2500DCard extends LitElement {
+class SolarBatteryCard extends LitElement {
   static get styles() {
     return css`
       :host {
@@ -114,7 +114,12 @@ class B2500DCard extends LitElement {
         box-shadow:0 0 6px #ff9800;
         animation:pulseOrange 2.5s infinite ease-in-out;
       }
-    
+
+	  .unit.rotate-horizontal {
+        transform: rotate(90deg);
+        transform-origin: center;
+      }
+
       @keyframes pulseOrange {
         0%,100% { opacity:0.6; transform:scaleY(0.95); }
         50%     { opacity:1;   transform:scaleY(1.05); }
@@ -385,6 +390,7 @@ class B2500DCard extends LitElement {
       solar: true,
       compact: false,
       icon: true,
+	  icon_horizontal: false,
       ...config
     };
     if (this._hass) {
@@ -600,8 +606,10 @@ class B2500DCard extends LitElement {
 
     //RENDER UNIT
     _renderUnit(batteryClass){
+	  const rotate = this.config.icon_horizontal;
+		
       return html`  
-      <div class="unit">
+      <div class="unit ${rotate ? "rotate-horizontal" : ""}">
          <div class="battery-bar">
            <div class="battery-fill ${batteryClass}" style="height:${Math.min(this._batteryPercent, 98)}%"></div>
          </div>
@@ -956,7 +964,7 @@ class B2500DCard extends LitElement {
 
 
   static getConfigElement() {
-    return document.createElement("b2500d-card-editor");
+    return document.createElement("solar-battery-card-editor");
   }
 
   getCardSize() { 
@@ -965,14 +973,14 @@ class B2500DCard extends LitElement {
 
 }
 
-customElements.define("b2500d-card", B2500DCard);
+customElements.define("solar-battery-card", SolarBatteryCard);
 
 
 // -------------------------------------
 // Config Editor
 // -------------------------------------
 
-class B2500DCardEditor extends LitElement {
+class SolarBatteryCardEditor extends LitElement {
   static get properties() {
     return {
       _config: { type: Object },
@@ -989,6 +997,7 @@ class B2500DCardEditor extends LitElement {
       settings: true,
       solar: true,
       icon: true,
+	  icon_horizontal: false,
       compact: false,
       max_input_power: 600,
       max_input_power2: 600,
@@ -1086,6 +1095,7 @@ class B2500DCardEditor extends LitElement {
         },
       { name: "compact", selector: { boolean: {} } },
       { name: "icon", selector: { boolean: {} } },
+	  { name: "icon_horizontal", selector: { boolean: {} } },
       { name: "solar", selector: { boolean: {} } },
       { name: "output", selector: { boolean: {} } },
       { name: "battery", selector: { boolean: {} } },
@@ -1111,13 +1121,14 @@ class B2500DCardEditor extends LitElement {
 }
 
 
-customElements.define("b2500d-card-editor", B2500DCardEditor);
+customElements.define("solar-battery-card-editor", SolarBatteryCardEditor);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-   type: "b2500d-card",
-   name: "Solar Storage Card",
+   type: "solar-battery-card",
+   name: "Solar Battery Card",
    preview: false,
    description: "Visualizing solar storage systems",
+
 
 });
