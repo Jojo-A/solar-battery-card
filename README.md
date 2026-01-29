@@ -1,11 +1,9 @@
 [![hacs][hacs-default]][hacs-default-link] [![hacs][hacs-validate]][hacs-validate-link]
 
 
-# B2500D-Card | The Solar Storage Card
+# Solar-Battery-Card
 
-A Home Assistant Custom Card for the Marstek B2500d storage system.
-
-Since you can also define individual entities and options, this card is suitable for other storage systems as well!
+A Home Assistant Custom Card for Solar Battery systems.
 
 <u>Large Card:</u>
 
