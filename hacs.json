@@ -1,7 +1,8 @@
 {
-  "name": "Solar Storage Card",
+  "name": "Solar Battery Card",
   "content_in_root": true,
-  "filename": "b2500d-card.js"
+  "filename": "solar-battery-card.js"
 }
+
 
 
